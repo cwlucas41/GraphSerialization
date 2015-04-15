@@ -5,6 +5,13 @@
 
 // Graph abstract class. This ADT assumes that the number
 // of vertices is fixed when the graph is created.
+
+#ifndef __Graph__
+#define __Graph__
+
+#include <iostream>
+using namespace std;
+
 class Graph {
 private:
   void operator =(const Graph&) {}     // Protect assignment
@@ -54,3 +61,5 @@ public:
   virtual void serialize(ostream& o) const=0;
   virtual void deserialize(istream& i)=0;
 };
+
+#endif
