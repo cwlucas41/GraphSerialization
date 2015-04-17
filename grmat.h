@@ -88,9 +88,17 @@ public:
   int getMark(int v) { return mark[v]; }
   void setMark(int v, int val) { mark[v] = val; }
 	
-	void serialize(ostream& o) const {
-		
-	}
+	void serialize(ostream& o) const{
+		o<<"graph serializedGraph {"
+		for (int i=0;i<numVert;i++){
+			for (int j=;j<numVert;j++){
+				if (matrix[i][j]!=0){
+					o<<"v"<<i<<" -> "<<"v"<<j<<" "<<"[label="<<matrix[i][j]<<"];"<<endl;
+				}	
+			}
+		}
+	o<<"}";
+  }
 	
 	void deserialize(istream& i){
 		string line;
