@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string>
 
 // Used by the mark array
 #define UNVISITED 0
@@ -92,7 +93,11 @@ public:
 	}
 	
 	void deserialize(istream& i){
-		
+		string line;
+		getline(i, line);
+		while (getline(i,line)) {
+			cout << line << endl;
+		}
 	}
 	
 };

@@ -7,9 +7,19 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include "grlist.h"
+#include "grmat.h"
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-	// insert code here...
-	std::cout << "Hello, World!\n";
-    return 0;
+
+	ifstream fin;
+	fin.open("graph1.dot");
+	
+	Graphm myGraph(8);
+	myGraph.deserialize(fin);
+	
+	return 0;
 }

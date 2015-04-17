@@ -11,7 +11,6 @@
 
 #include <iostream>
 using namespace std;
-
 class Graph {
 private:
   void operator =(const Graph&) {}     // Protect assignment

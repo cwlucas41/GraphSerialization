@@ -137,7 +137,7 @@ public:
   void setMark(int v, int val) { mark[v] = val; }
 	
 	void serialize(ostream& o) const {
-	
+
 	}
 	
 	void deserialize(istream& i){
