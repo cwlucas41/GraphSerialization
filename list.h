@@ -3,6 +3,8 @@
 // Third Edition (C++)" by Clifford A. Shaffer.
 // Source code Copyright (C) 2007-2011 by Clifford A. Shaffer.
 
+#ifndef __list__
+#define __list__
 
 template <typename E> class List { // List ADT
 private:
@@ -54,3 +56,5 @@ public:
   // Return: The current element.
   virtual const E& getValue() const = 0;
 };
+
+#endif

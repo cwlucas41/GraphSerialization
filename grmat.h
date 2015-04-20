@@ -10,6 +10,7 @@
 #define __Graphm__
 
 #include <stdio.h>
+#include <iostream>
 #include <ctype.h>
 #include <string>
 
@@ -89,22 +90,37 @@ public:
   void setMark(int v, int val) { mark[v] = val; }
 	
 	void serialize(ostream& o) const{
-		o<<"graph serializedGraph {"
-		for (int i=0;i<numVert;i++){
-			for (int j=;j<numVert;j++){
+		o<<"digraph serializedGraph {"<<endl;
+		for (int i=0;i<numVertex;i++){
+			for (int j=0;j<numVertex;j++){
 				if (matrix[i][j]!=0){
-					o<<"v"<<i<<" -> "<<"v"<<j<<" "<<"[label="<<matrix[i][j]<<"];"<<endl;
+					o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<matrix[i][j]<<"];"<<endl;
 				}	
 			}
 		}
-	o<<"}";
+	o<<"}"<<endl;
   }
+
 	
 	void deserialize(istream& i){
 		string line;
-		getline(i, line);
-		while (getline(i,line)) {
-			cout << line << endl;
+		string vertexConvention = "v";
+		string delimiter = " ";
+		getline(i, line); // header
+		while (getline(i,line) && line.find("}") == string::npos) {
+			unsigned long vPos = 0;
+			unsigned long spPos = 0;
+			int data[3] = {0,0};
+			for (int i = 0; i < 2; i++) {
+				vPos = line.find(vertexConvention,vPos)+1;
+				spPos = line.find(delimiter,spPos);
+				string stringVertex = line.substr(vPos, spPos-vPos);
+				data[i] = stoi(stringVertex);
+			}
+			unsigned long eqPos = line.find("=")+1;
+			string weight = line.substr(eqPos,line.find("]")-eqPos);
+			data[2] = stoi(weight);
+			setEdge(data[0], data[1], data[2]);
 		}
 	}
 	

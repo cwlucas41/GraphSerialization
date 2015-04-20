@@ -7,6 +7,10 @@
 // complete LList template class
 
 // First, get the declaration for the base list class
+
+#ifndef __llist__
+#define __llist__
+
 #include "list.h"
 #include "book.h"
 
@@ -105,3 +109,5 @@ public:
     return curr->next->element;
   }
 };
+
+#endif
