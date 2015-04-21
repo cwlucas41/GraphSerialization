@@ -89,12 +89,12 @@ public:
   int getMark(int v) { return mark[v]; }
   void setMark(int v, int val) { mark[v] = val; }
 	
-	void serialize(ostream& o) const{
+	void serialize(ostream& o) /*const*/{
 		o<<"digraph serializedGraph {"<<endl;
 		for (int i=0;i<numVertex;i++){
-			for (int j=0;j<numVertex;j++){
-				if (matrix[i][j]!=0){
-					o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<matrix[i][j]<<"];"<<endl;
+			for (int j = first(i); j != numVertex; j = next(i, j)) {
+				if (weight(i, j)!=0){
+					o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<weight(i, j)<<"];"<<endl;
 				}	
 			}
 		}
