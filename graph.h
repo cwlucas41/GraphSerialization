@@ -57,8 +57,9 @@ public:
   // val: The value to set
   virtual int getMark(int v) =0;
   virtual void setMark(int v, int val) =0;
-  virtual void serialize(ostream& o) const=0;
+  virtual void serialize(ostream& o) /*const*/=0;
   virtual void deserialize(istream& i)=0;
+	
 };
 
 #endif

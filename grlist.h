@@ -47,7 +47,7 @@ public:
 
   ~Graphl() {       // Destructor
     delete [] mark; // Return dynamically allocated memory
-    for (int i=0; i<numVertex; i++) delete [] vertex[i];
+    for (int i=0; i<numVertex; i++) delete vertex[i];
     delete [] vertex;
   }
 
@@ -136,12 +136,35 @@ public:
   int getMark(int v) { return mark[v]; }
   void setMark(int v, int val) { mark[v] = val; }
 	
-	void serialize(ostream& o) const {
-
+	void serialize(ostream& o) /*const*/{
+		o<<"digraph serializedGraph {"<<endl;
+		for (int i = 0; i < n(); i++) {
+			for (int j = first(i); j != numVertex; j = next(i, j)) {
+				o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<weight(i, j)<<"];"<<endl;
+			}
+		}
 	}
 	
 	void deserialize(istream& i){
-		
+		string line;
+		string vertexConvention = "v";
+		string delimiter = " ";
+		getline(i, line); // header
+		while (getline(i,line) && line.find("}") == string::npos) {
+			unsigned long vPos = 0;
+			unsigned long spPos = 0;
+			int data[3] = {0,0};
+			for (int i = 0; i < 2; i++) {
+				vPos = line.find(vertexConvention,vPos)+1;
+				spPos = line.find(delimiter,spPos);
+				string stringVertex = line.substr(vPos, spPos-vPos);
+				data[i] = stoi(stringVertex);
+			}
+			unsigned long eqPos = line.find("=")+1;
+			string weight = line.substr(eqPos,line.find("]")-eqPos);
+			data[2] = stoi(weight);
+			setEdge(data[0], data[1], data[2]);
+		}
 	}
 	
 };

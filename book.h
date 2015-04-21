@@ -7,6 +7,10 @@
 // used for the software examples.
 
 // First, include all the standard headers that we need
+
+#ifndef __Book__
+#define __Book__
+
 #include <iostream>
 #include <cstdlib>
 #include <time.h>  // Used by timing functions
@@ -99,3 +103,5 @@ ostream& operator<<(ostream& s, const Int& i)
   { return s << i.key(); }
 ostream& operator<<(ostream& s, const Int* i)
   { return s << i->key(); }
+
+#endif

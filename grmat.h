@@ -110,10 +110,10 @@ public:
 			unsigned long spPos = 0;
 			int data[3] = {0,0};
 			for (int i = 0; i < 2; i++) {
-				vPos = line.find(vertexConvention,vPos)+1;//从0开始找v位置，vPos=位置+1 => e.g. v1的1的位置
-				spPos = line.find(delimiter,spPos);//找空格的位置
-				string stringVertex = line.substr(vPos, spPos-vPos);//substring [vPos,spPos) v1的1
-				data[i] = stoi(stringVertex);//string转换成int e.g. data=[1]
+				vPos = line.find(vertexConvention,vPos)+1;
+				spPos = line.find(delimiter,spPos);
+				string stringVertex = line.substr(vPos, spPos-vPos);
+				data[i] = stoi(stringVertex);data=[1]
 			}
 			unsigned long eqPos = line.find("=")+1;
 			string weight = line.substr(eqPos,line.find("]")-eqPos);

@@ -3,6 +3,9 @@
 // Third Edition (C++)" by Clifford A. Shaffer.
 // Source code Copyright (C) 2007-2011 by Clifford A. Shaffer.
 
+#ifndef __link__
+#define __link__
+
 // Singly linked list node
 template <typename E> class Link {
 public:
@@ -13,3 +16,5 @@ public:
     { element = elemval;  next = nextval; }
   Link(Link* nextval =NULL) { next = nextval; }
 };
+
+#endif
