@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 #include "grlist.h"
 #include "grmat.h"
 #include "graphutil.cpp"
@@ -25,63 +26,61 @@ void checkEdge(Graph* g, int v1, int v2, int weight){
 	}
 }
 
-void graphSumSetter(Graph* g, int n){
+void graphSumSetter(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc){
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			int weight = i+j;
-			if (weight > 0 && i!=j) {
+			int weight = w(i,j);
+			if (weight > 0 && acc(i,j)) {
 				g->setEdge(i, j, weight);
 			}
 		}
 	}
 }
 
-void graphSumChecker(Graph* g, int n){
+void graphSumChecker(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc){
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			int weight = i+j;
-			if (weight > 0 && i!=j) {
+			int weight = w(i,j);
+			if (weight > 0 && acc(i,j)) {
 				checkEdge(g, i, j, weight);
 			}
 		}
 	}
 }
 
+template <typename GraphImplementation>
+void testLinearization(int n, string fileName, function<int(int,int)> weightFunction, function<bool(int,int)> edgeCriteria) {
+	ifstream fin;
+	ofstream fout;
+	
+	fout.open(fileName);
+	GraphImplementation outGraph(n);
+	graphSumSetter(&outGraph, n, weightFunction, edgeCriteria);
+	outGraph.serialize(fout);
+	fout.close();
+	
+	fin.open(fileName);
+	GraphImplementation inGraph(n);
+	inGraph.deserialize(fin);
+	graphSumChecker(&inGraph, n, weightFunction, edgeCriteria);
+	fin.close();
+}
+
 int main(int argc, const char * argv[]) {
 	
-	int size = 125;
+	int size = 9;
 	
-	// Dot format serialize adj list graph
-	ofstream foutl;
-	foutl.open("graphl.dot");
-	Graphl outGraphl(size);
-	graphSumSetter(&outGraphl,size);
-	outGraphl.serialize(foutl);
-	foutl.close();
+	function<int(int,int)> weightFunction = [size] (int x, int y) -> int {return x+y+size;};
 	
-	//Dot format deserialize adj list graph
-	ifstream finl;
-	finl.open("graphl.dot");
-	Graphl inGraphl(size);
-	inGraphl.deserialize(finl);
-	graphSumChecker(&inGraphl, size);
-	finl.close();
+	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) -> bool {
+		int d = ceil(sqrt(size));
+		return x%d == 0 && y%d == 0;
+	};
 	
-	//Dot format serializd mat graph
-	ofstream foutm;
-	foutm.open("graphm.dot");
-	Graphm outGraphm(size);
-	graphSumSetter(&outGraphm, size);
-	outGraphm.serialize(foutm);
-	foutm.close();
+	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
 	
-	//Dot format deserialize mat graph
-	ifstream finm;
-	finm.open("graphm.dot");
-	Graphm inGraphm(size);
-	inGraphm.deserialize(finm);
-	graphSumChecker(&inGraphm, size);
-	finm.close();
+	testLinearization<Graphl>(size, "graphl.dot", weightFunction, sparseEdgeCriteria);
+	testLinearization<Graphm>(size, "graphm.dot", weightFunction, denseEdgeCriteria);
 	
 	return 0;
 }
