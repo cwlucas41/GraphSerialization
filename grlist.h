@@ -138,7 +138,7 @@ public:
 	
 	void serialize(ostream& o) /*const*/{
 		o<<"digraph serializedGraph {"<<endl;
-		for (int i = 0; i < numVertex; i++) {
+		for (int i = 0; i < n(); i++) {
 			for (int j = first(i); j != numVertex; j = next(i, j)) {
 				o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<weight(i, j)<<"];"<<endl;
 			}
