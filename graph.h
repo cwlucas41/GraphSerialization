@@ -59,6 +59,11 @@ public:
   virtual int getMark(int v) =0;
   virtual void setMark(int v, int val) =0;
 	
+	virtual void resize(int n){
+		this->~Graph();
+		this->Init(n);
+	}
+	
 	void serialize(ostream& o) /*const*/{
 		o<<"digraph serializedGraph {"<<endl;
 		for (int i=0;i<n();i++){

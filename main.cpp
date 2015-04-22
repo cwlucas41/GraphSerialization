@@ -80,8 +80,14 @@ int main(int argc, const char * argv[]) {
 	
 	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
 	
-	testLinearization<Graphl>(size, "graphl.dot", weightFunction, sparseEdgeCriteria);
+	testLinearization<Graphl>(size, "graphl.dot", weightFunction, denseEdgeCriteria);
 	testLinearization<Graphm>(size, "graphm.dot", weightFunction, denseEdgeCriteria);
+	
+	Graphm test(0);
+	test.resize(size);
+	if (size != test.n()) {
+		cout << "Resize failed" << endl;
+	}
 	
 	return 0;
 }

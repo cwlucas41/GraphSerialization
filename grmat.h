@@ -88,7 +88,7 @@ public:
   int weight(int v1, int v2) { return matrix[v1][v2]; }
   int getMark(int v) { return mark[v]; }
   void setMark(int v, int val) { mark[v] = val; }
-	
+		
 //	void serialize(ostream& o) /*const*/{
 //		o<<"digraph serializedGraph {"<<endl;
 //		for (int i=0;i<n();i++){
