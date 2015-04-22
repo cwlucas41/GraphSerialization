@@ -84,11 +84,11 @@ public:
 			unsigned long vPos = 0;
 			unsigned long spPos = 0;
 			int data[3] = {0,0};
-			for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
 				vPos = line.find(vertexConvention,vPos)+1;
 				spPos = line.find(delimiter,spPos);
 				string stringVertex = line.substr(vPos, spPos-vPos);
-				data[i] = stoi(stringVertex);
+				data[j] = stoi(stringVertex);
 			}
 			unsigned long eqPos = line.find("=")+1;
 			string weight = line.substr(eqPos,line.find("]")-eqPos);
