@@ -10,6 +10,7 @@
 #define __Graph__
 
 #include <iostream>
+#include "string"
 using namespace std;
 class Graph {
 private:

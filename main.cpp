@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <cmath>
+#include <functional>
 #include "grlist.h"
 #include "grmat.h"
 #include "graphutil.cpp"
@@ -27,7 +28,7 @@ void checkEdge(Graph* g, int v1, int v2, int weight){
 }
 
 void graphSumSetter(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc){
-	for (int i = 0; i<n; i++) {
+for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
 			int weight = w(i,j);
 			if (weight > 0 && acc(i,j)) {
@@ -70,9 +71,9 @@ int main(int argc, const char * argv[]) {
 	
 	int size = 9;
 	
-	function<int(int,int)> weightFunction = [size] (int x, int y) -> int {return x+y+size;};
+	function<int(int,int)> weightFunction = [size] (int x, int y) {return x+y+size;};
 	
-	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) -> bool {
+	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) {
 		int d = ceil(sqrt(size));
 		return x%d == 0 && y%d == 0;
 	};

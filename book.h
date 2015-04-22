@@ -71,7 +71,7 @@ inline void swap(char* i, char* j) {
 
 
 // Big enough for simple testing
-#define INFINITY 9999
+//#define INFINITY 9999
 
 // Timing variables and functions
 unsigned tstart = 0;  // Time at beginning of timed section

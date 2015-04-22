@@ -13,6 +13,7 @@
 
 #include "list.h"
 #include "book.h"
+#include "link.h"
 
 // This is the declaration for LList. It is split into two parts
 // because it is too big to fit on one book page
