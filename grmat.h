@@ -126,7 +126,7 @@ public:
 		string line;
 		string vertex="v";
 		string delimiter=",";
-		for (int j=0;j<5;j++)
+		for (int j=0;j<n()+2;j++)
 			getline(i,line);
 		while (getline(i,line)){
 			unsigned long vPos=0;
@@ -134,7 +134,7 @@ public:
 			int data[3];
 			for (int j=0;j<2;j++){
 				vPos=line.find(vertex,vPos)+1;
-				cmPos=line.find(delimiter,cmPos;
+				cmPos=line.find(delimiter,cmPos);
 				string stringVertex=line.substr(vPos,cmPos-vPos);
 				data[i]=stoi(stringVertex);
 			}
