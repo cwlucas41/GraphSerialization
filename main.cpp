@@ -80,7 +80,7 @@ int main(int argc, const char * argv[]) {
 	
 	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
 	
-	testLinearization<Graphl>(size, "graphl.dot", weightFunction, denseEdgeCriteria);
+	testLinearization<Graphl>(size, "graphl.dot", weightFunction, sparseEdgeCriteria);
 	testLinearization<Graphm>(size, "graphm.dot", weightFunction, denseEdgeCriteria);
 	
 	Graphm test(0);
