@@ -131,12 +131,12 @@ public:
 		while (getline(i,line)){
 			unsigned long vPos=0;
 			unsigned long cmPos=0;
-			int data[3];
+			int data[3]={0,0,0};
 			for (int j=0;j<2;j++){
 				vPos=line.find(vertex,vPos)+1;
 				cmPos=line.find(delimiter,cmPos);
 				string stringVertex=line.substr(vPos,cmPos-vPos);
-				data[i]=stoi(stringVertex);
+				data[j]=stoi(stringVertex);
 			}
 			string weight=line.substr(cmPos+1,-1);
 			data[2]=stoi(weight);
