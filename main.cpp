@@ -69,7 +69,7 @@ void testLinearization(int n, string fileName, function<int(int,int)> weightFunc
 
 int main(int argc, const char * argv[]) {
 	
-	int size = 9;
+	int size = 5;
 	
 	function<int(int,int)> weightFunction = [size] (int x, int y) {return x+y+size;};
 	
@@ -82,6 +82,14 @@ int main(int argc, const char * argv[]) {
 	
 	testLinearization<Graphl>(size, "graphl.dot", weightFunction, sparseEdgeCriteria);
 	testLinearization<Graphm>(size, "graphm.dot", weightFunction, denseEdgeCriteria);
+	
+	// test GDFdeserialize()
+	ifstream fin;
+	fin.open("GDFexample.gdf");
+	Graphl gdfImport(size);
+	gdfImport.GDFdeserialize(fin);
+	Gprint(&gdfImport);
+	fin.close();
 	
 	Graphm test(0);
 	test.resize(size);

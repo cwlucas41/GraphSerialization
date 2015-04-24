@@ -126,19 +126,22 @@ public:
 		string line;
 		string vertex="v";
 		string delimiter=",";
+
+		
 		for (int j=0;j<n()+2;j++)
 			getline(i,line);
+		
 		while (getline(i,line)){
+			int data[3]={0,0,0};
 			unsigned long vPos=0;
 			unsigned long cmPos=0;
-			int data[3]={0,0,0};
 			for (int j=0;j<2;j++){
 				vPos=line.find(vertex,vPos)+1;
-				cmPos=line.find(delimiter,cmPos);
+				cmPos=line.find(delimiter,cmPos)+1;
 				string stringVertex=line.substr(vPos,cmPos-vPos);
 				data[j]=stoi(stringVertex);
 			}
-			string weight=line.substr(cmPos+1,-1);
+			string weight=line.substr(cmPos,line.find("\n",0));
 			data[2]=stoi(weight);
 			setEdge(data[0],data[1],data[2]);
 		}
