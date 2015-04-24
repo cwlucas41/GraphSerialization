@@ -122,6 +122,26 @@ public:
 //		}
 //	}
 	
+	void GDFserialize(ostream & o) /*const*/{
+		bool visited[n()];
+		for (int i= 0;i<n();i++)
+			visited[i] = false;
+		visited[0]= true;
+  // needs another block to iterate through all nodes? then end of iteration cycle?
+  // block below, use MST to iterate through all the edges and their weights. Then put them into ostream
+  for (int i= 0;i< n();i++){
+	  int u= first(i); // the first neighbor of i
+	  o<<"s"<<i<<","<<"s"<<u<<","<<weight(i,u)<<endl;
+	  while (int p = next(i,u)!= n()){ // if the next one is not equal to numVertex, that means i still has neighbour that is other than u
+		  if (visited[p] == true) continue;
+		  visited[p] = true;
+		  o<<"s"<<i<<","<<"s"<<p<<","<<weight(i,p)<<endl;
+	  }
+	  // end of iteration of edges
+	  
+  }
+	}
+	
 	void GDFdeserialize(istream& i){
 		string line;
 		string vertex="v";
