@@ -14,6 +14,7 @@
 #include "grlist.h"
 #include "grmat.h"
 #include "graphutil.cpp"
+#include "DOTFormat.h"
 using namespace std;
 
 void checkEdge(Graph* g, int v1, int v2, int weight){
@@ -50,52 +51,42 @@ void graphSumChecker(Graph* g, int n, function<int(int, int)> w, function<bool(i
 }
 
 template <typename GraphImplementation>
-void testLinearization(int n, string fileName, function<int(int,int)> weightFunction, function<bool(int,int)> edgeCriteria) {
+void testLinearization(int n, string fileName, Serializer* format, function<int(int,int)> weightFunction, function<bool(int,int)> edgeCriteria) {
 	ifstream fin;
 	ofstream fout;
 	
 	fout.open(fileName);
 	GraphImplementation outGraph(n);
 	graphSumSetter(&outGraph, n, weightFunction, edgeCriteria);
-	outGraph.serialize(fout);
+	outGraph.serialize(fout, format);
 	fout.close();
 	
 	fin.open(fileName);
 	GraphImplementation inGraph(n);
-	inGraph.deserialize(fin);
+	inGraph.deserialize(fin, format);
 	graphSumChecker(&inGraph, n, weightFunction, edgeCriteria);
 	fin.close();
 }
 
 int main(int argc, const char * argv[]) {
 	
+	DOTFormat dotFormat;
 	int size = 5;
-	
 	function<int(int,int)> weightFunction = [size] (int x, int y) {return x+y+size;};
-	
 	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) {
 		int d = ceil(sqrt(size));
 		return x%d == 0 && y%d == 0;
 	};
-	
 	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
-	
-	testLinearization<Graphl>(size, "graphl.dot", weightFunction, sparseEdgeCriteria);
-	testLinearization<Graphm>(size, "graphm.dot", weightFunction, denseEdgeCriteria);
-	
-	// test GDFdeserialize()
-	ifstream fin;
-	fin.open("GDFexample.gdf");
-	Graphl gdfImport(size);
-	gdfImport.GDFdeserialize(fin);
-	Gprint(&gdfImport);
-	fin.close();
 	
 	Graphm test(0);
 	test.resize(size);
 	if (size != test.n()) {
 		cout << "Resize failed" << endl;
 	}
+	
+	testLinearization<Graphl>(size, "graphl.dot", &dotFormat, weightFunction, sparseEdgeCriteria);
+	testLinearization<Graphm>(size, "graphl.dot", &dotFormat, weightFunction, sparseEdgeCriteria);
 	
 	return 0;
 }

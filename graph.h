@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "string"
+#include "Serializer.h"
 using namespace std;
 class Graph {
 private:
@@ -64,39 +65,14 @@ public:
 		this->Init(n);
 	}
 	
-	void serialize(ostream& o) /*const*/{
-		o<<"digraph serializedGraph {"<<endl;
-		for (int i=0;i<n();i++){
-			for (int j = first(i); j != n(); j = next(i, j)) {
-				o<<"\tv"<<i<<" -> "<<"v"<<j<<" [label="<<weight(i, j)<<"];"<<endl;
-			}
-		}
-		o<<"}"<<endl;
+	void serialize(ostream& o, Serializer* s) /*const*/{
+		s->serialize(this, o);
 	}
 	
 	
-	void deserialize(istream& i){
-		string line;
-		string vertexConvention = "v";
-		string delimiter = " ";
-		getline(i, line); // header
-		while (getline(i,line) && line.find("}") == string::npos) {
-			unsigned long vPos = 0;
-			unsigned long spPos = 0;
-			int data[3] = {0,0};
-			for (int j = 0; j < 2; j++) {
-				vPos = line.find(vertexConvention,vPos)+1;
-				spPos = line.find(delimiter,spPos);
-				string stringVertex = line.substr(vPos, spPos-vPos);
-				data[j] = stoi(stringVertex);
-			}
-			unsigned long eqPos = line.find("=")+1;
-			string weight = line.substr(eqPos,line.find("]")-eqPos);
-			data[2] = stoi(weight);
-			setEdge(data[0], data[1], data[2]);
-		}
+	void deserialize(istream& i, Serializer* s){
+		s->deserialize(this,i);
 	}
-	
 };
 
 #endif
