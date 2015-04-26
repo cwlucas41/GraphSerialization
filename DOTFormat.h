@@ -15,8 +15,8 @@
 class DOTFormat: public Serializer {
 	
 public:
-	void serialize(Graph*, ostream&);
-	void deserialize(Graph*, istream&);
+	void serializeToFormat(Graph*, ostream&);
+	void deserializeToFormat(Graph*, istream&);
 };
 
 #endif /* defined(__GraphSerialization__DOTFormat__) */

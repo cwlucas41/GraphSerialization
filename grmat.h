@@ -36,6 +36,14 @@ public:
       delete [] matrix[i];
     delete [] matrix;
   }
+	
+	void resize(int n){
+		delete [] mark; // Return dynamically allocated memory
+		for (int i=0; i<numVertex; i++)
+			delete [] matrix[i];
+		delete [] matrix;
+		Init(n);
+	}
 
   void Init(int n) { // Initialize the graph
     int i;

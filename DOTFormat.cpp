@@ -8,8 +8,9 @@
 
 #include "DOTFormat.h"
 #include "graph.h"
+#include "string"
 
-void DOTFormat::serialize(Graph* g, ostream& o) {
+void DOTFormat::serializeToFormat(Graph* g, ostream& o) {
 	o<<"digraph serializedGraph {"<<endl;
 	for (int i=0;i < g->n();i++){
 		o<<"v"<<i<<endl;
@@ -22,7 +23,7 @@ void DOTFormat::serialize(Graph* g, ostream& o) {
 	o<<"}"<<endl;
 }
 
-void DOTFormat::deserialize(Graph* g, istream& i) {
+void DOTFormat::deserializeToFormat(Graph* g, istream& i) {
 	string line;
 	string vertexConvention = "v";
 	string delimiter = " ";

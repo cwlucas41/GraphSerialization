@@ -17,8 +17,9 @@ using namespace std;
 class Serializer {
 	
 public:
-	virtual void serialize(Graph*, ostream&) = 0;
-	virtual void deserialize(Graph*, istream&) = 0;
+	virtual ~Serializer() {}
+	virtual void serializeToFormat(Graph*, ostream&) = 0;
+	virtual void deserializeToFormat(Graph*, istream&) = 0;
 };
 
 #endif /* defined(__GraphSerialization__Serializer__) */

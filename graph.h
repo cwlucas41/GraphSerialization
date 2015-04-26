@@ -60,18 +60,15 @@ public:
   virtual int getMark(int v) =0;
   virtual void setMark(int v, int val) =0;
 	
-	virtual void resize(int n){
-		this->~Graph();
-		this->Init(n);
-	}
+	virtual void resize(int n) = 0;
 	
-	void serialize(ostream& o, Serializer* s) /*const*/{
-		s->serialize(this, o);
+	void serialize(ostream& o, Serializer* s) {
+		s->serializeToFormat(this, o);
 	}
 	
 	
 	void deserialize(istream& i, Serializer* s){
-		s->deserialize(this,i);
+		s->deserializeToFormat(this,i);
 	}
 };
 

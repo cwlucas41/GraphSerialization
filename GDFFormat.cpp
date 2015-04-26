@@ -8,8 +8,9 @@
 
 #include "GDFFormat.h"
 #include "graph.h"
+#include "string"
 
-void GDFFormat::serialize(Graph *g, ostream &o){
+void GDFFormat::serializeToFormat(Graph *g, ostream &o){
 
 	o<<"nodedef>name VARCHAR" << endl;
 	for (int i = 0; i < g->n(); i++) {
@@ -23,7 +24,7 @@ void GDFFormat::serialize(Graph *g, ostream &o){
 	}
 }
 
-void GDFFormat::deserialize(Graph *g, istream &i){
+void GDFFormat::deserializeToFormat(Graph *g, istream &i){
 	string line;
 	string vertex="v";
 	string delimiter=",";

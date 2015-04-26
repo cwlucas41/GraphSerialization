@@ -51,6 +51,13 @@ public:
     delete [] vertex;
   }
 
+	void resize(int n){
+		delete [] mark; // Return dynamically allocated memory
+		for (int i=0; i<numVertex; i++) delete vertex[i];
+		delete [] vertex;
+		Init(n);
+	}
+	
   void Init(int n) {
     int i;
     numVertex = n;
