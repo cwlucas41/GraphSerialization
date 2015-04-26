@@ -11,11 +11,9 @@
 
 void DOTFormat::serialize(Graph* g, ostream& o) {
 	o<<"digraph serializedGraph {"<<endl;
-	
 	for (int i=0;i < g->n();i++){
 		o<<"v"<<i<<endl;
 	}
-	
 	for (int i=0;i < g->n();i++){
 		for (int j = g->first(i); j != g->n(); j = g->next(i, j)) {
 			o<<"v"<<i<<" -> "<<"v"<<j<<" [label="<<g->weight(i, j)<<"];"<<endl;
@@ -42,7 +40,7 @@ void DOTFormat::deserialize(Graph* g, istream& i) {
 	while (line.find("}") == string::npos) {
 		unsigned long vPos = 0;
 		unsigned long spPos = 0;
-		int data[3] = {0,0};
+		int data[3];
 		for (int j = 0; j < 2; j++) {
 			vPos = line.find(vertexConvention,vPos)+1;
 			spPos = line.find(delimiter,spPos);

@@ -10,24 +10,17 @@
 #include "graph.h"
 
 void GDFFormat::serialize(Graph *g, ostream &o){
-	bool visited[g->n()];
-	for (int i= 0;i<g->n();i++)
-		visited[i] = false;
-	visited[0]= true;
-	// needs another block to iterate through all nodes? then end of iteration cycle?
-	// block below, use MST to iterate through all the edges and their weights. Then put them into ostream
-	for (int i= 0;i< g->n();i++){
-		int u= g->first(i); // the first neighbor of i
-		o<<"s"<<i<<","<<"s"<<u<<","<<g->weight(i,u)<<endl;
-		while (int p = g->next(i,u)!= g->n()){ // if the next one is not equal to numVertex, that means i still has neighbour that is other than u
-			if (visited[p] == true) continue;
-			visited[p] = true;
-			o<<"s"<<i<<","<<"s"<<p<<","<<g->weight(i,p)<<endl;
-		}
-		// end of iteration of edges
-		
+
+	o<<"nodedef>name VARCHAR" << endl;
+	for (int i = 0; i < g->n(); i++) {
+		o<<"v"<<i<<endl;
 	}
-	
+	o<<"edgedef>node1 VARCHAR,node2 VARCHAR,weight INT,directed"<<endl;
+	for (int i = 0; i < g->n(); i++) {
+		for (int j = g->first(i); j != g->n(); j = g->next(i, j)) {
+			o<<"v"<<i<<",v"<<j<<","<<g->weight(i, j)<<",directed"<<endl;
+		}
+	}
 }
 
 void GDFFormat::deserialize(Graph *g, istream &i){
@@ -39,7 +32,7 @@ void GDFFormat::deserialize(Graph *g, istream &i){
 		getline(i,line);
 	
 	while (getline(i,line)){
-		int data[3]={0,0,0};
+		int data[3];
 		unsigned long vPos=0;
 		unsigned long cmPos=0;
 		for (int j=0;j<2;j++){
@@ -48,7 +41,7 @@ void GDFFormat::deserialize(Graph *g, istream &i){
 			string stringVertex=line.substr(vPos,cmPos-vPos);
 			data[j]=stoi(stringVertex);
 		}
-		string weight=line.substr(cmPos,line.find("\n",0));
+		string weight=line.substr(cmPos,line.find(delimiter,cmPos)-cmPos);
 		data[2]=stoi(weight);
 		g->setEdge(data[0],data[1],data[2]);
 	}
