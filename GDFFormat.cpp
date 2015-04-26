@@ -12,14 +12,14 @@
 
 void GDFFormat::serializeToFormat(Graph *g, ostream &o){
 
-	o<<"nodedef>name VARCHAR" << endl;
+	o<<"nodedef>name" << endl;
 	for (int i = 0; i < g->n(); i++) {
 		o<<"v"<<i<<endl;
 	}
-	o<<"edgedef>node1 VARCHAR,node2 VARCHAR,weight INT,directed"<<endl;
+	o<<"edgedef>node1,node2,weight INT,directed BOOLEAN"<<endl;
 	for (int i = 0; i < g->n(); i++) {
 		for (int j = g->first(i); j != g->n(); j = g->next(i, j)) {
-			o<<"v"<<i<<",v"<<j<<","<<g->weight(i, j)<<",directed"<<endl;
+			o<<"v"<<i<<",v"<<j<<","<<g->weight(i, j)<<",true"<<endl;
 		}
 	}
 }
