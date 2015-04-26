@@ -101,7 +101,7 @@ void testLinearization(int n, string fileName, Serializer* format, function<int(
 	fout.close();
 	
 	fin.open(fileName);
-	GraphImplementation inGraph(n);
+	GraphImplementation inGraph(1);
 	inGraph.deserialize(fin, format);
 	graphSumChecker(&inGraph, n, weightFunction, edgeCriteria);
 	fin.close();

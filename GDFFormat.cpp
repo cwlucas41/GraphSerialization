@@ -27,9 +27,16 @@ void GDFFormat::deserialize(Graph *g, istream &i){
 	string line;
 	string vertex="v";
 	string delimiter=",";
+	getline(i,line); // node header
 	
-	for (int j=0; j < g->n()+2; j++)
-		getline(i,line);
+	getline(i, line); // prepare for while loop
+	int	vertexCount = 0;
+	while (line.find(",") == string::npos) {
+		vertexCount++;
+		getline(i, line); // catches edge header on last iteration
+	}
+	
+	g->resize(vertexCount);
 	
 	while (getline(i,line)){
 		int data[3];
