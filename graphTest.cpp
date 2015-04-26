@@ -101,7 +101,7 @@ void testLinearization(int n, string fileName, Serializer* format, function<int(
 	fout.close();
 	
 	fin.open(fileName);
-	GraphImplementation inGraph(1);
+	GraphImplementation inGraph(0); // graph is, in general, the incorrect size. Deserialize should fix this and an error should not be produced.
 	inGraph.deserialize(fin, format);
 	graphSumChecker(&inGraph, n, weightFunction, edgeCriteria);
 	fin.close();
