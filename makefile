@@ -14,7 +14,7 @@ graphTest: graphTest.o DOTFormat.o GDFFormat.o
 
 clean:
 	rm *.o
-	rm graph
+	rm graphTest
 
 cleanGraphs:
 	rm *.dot
