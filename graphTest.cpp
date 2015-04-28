@@ -21,13 +21,6 @@ using namespace std;
 template <typename GraphImplementation>
 void testLinearization(int n, string fileName, Serializer* format, function<int(int, int,int)> weightFunction, function<bool(int, int,int)> edgeCriteria);
 
-void graphChecker(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
-
-void graphSetter(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
-
-void checkEdge(Graph* g, int v1, int v2, int weight);
-
-
 int main(int argc, const char * argv[]) {
 	
 	DOTFormat dotFormat;
@@ -47,40 +40,6 @@ int main(int argc, const char * argv[]) {
 	testLinearization<Graphm>(size, "m.gdf", &gdfFormat, weightFunction, sparseEdgeCriteria);
 	
 	return 0;
-}
-
-
-void checkEdge(Graph* g, int v1, int v2, int weight){
-	if (!g->isEdge(v1,v2)) {
-		cout << v1 << ", " << v2 << " is not an edge" << endl;
-		return;
-	}
-	int actualWeight = g->weight(v1,v2);
-	if (actualWeight != weight) {
-		cout << "Edge " << v1 << ", " << v2 << " has weight " << actualWeight << ". The weight should be " << weight << "." << endl;
-	}
-}
-
-void graphSetter(Graph* g, int n, function<int(int,int,int)> w, function<bool(int,int,int)> acc){
-	for (int i = 0; i<n; i++) {
-		for (int j = 0; j<n; j++) {
-			int weight = w(i,j,n);
-			if (weight > 0 && acc(i,j,n)) {
-				g->setEdge(i, j, weight);
-			}
-		}
-	}
-}
-
-void graphChecker(Graph* g, int n, function<int(int,int,int)> w, function<bool(int,int,int)> acc){
-	for (int i = 0; i<n; i++) {
-		for (int j = 0; j<n; j++) {
-			int weight = w(i,j,n);
-			if (weight > 0 && acc(i,j,n)) {
-				checkEdge(g, i, j, weight);
-			}
-		}
-	}
 }
 
 template <typename GraphImplementation>
