@@ -12,6 +12,7 @@
 
 #include "graph.h"
 #include <iostream>
+#include <functional>
 using namespace std;
 
 void checkEdge(Graph* g, int v1, int v2, int weight){
