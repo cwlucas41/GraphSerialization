@@ -16,6 +16,7 @@
 
 #include "grlist.h"
 #include "heap.h"
+#include <functional>
 
 int minVertex(Graph* G, int* D) { // Find min cost vertex
 	int i, v = -1;
