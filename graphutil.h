@@ -9,7 +9,7 @@
 #ifndef GraphSerialization_graphutil_h
 #define GraphSerialization_graphutil_h
 
-
+#include <functional>
 
 void Gprint(Graph* G);
 
