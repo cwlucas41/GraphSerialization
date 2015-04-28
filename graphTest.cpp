@@ -16,7 +16,6 @@
 #include "DOTFormat.h"
 #include "GDFFormat.h"
 #include "graphutil.h"
-#include "dijkstra.h"
 using namespace std;
 
 
@@ -38,7 +37,7 @@ int main(int argc, const char * argv[]) {
 	function<int(int,int)> weightFunction = [size] (int x, int y) {return x+y+size;};
 	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) {
 		int d = ceil(sqrt(size));
-		return x%d == 0 && y%d == 0 && x < y;
+		return x%d == 0 && y%d == 0;
 	};
 	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
 	
@@ -52,19 +51,6 @@ int main(int argc, const char * argv[]) {
 	testLinearization<Graphm>(size, "m.dot", &dotFormat, weightFunction, sparseEdgeCriteria);
 	testLinearization<Graphl>(size, "l.gdf", &gdfFormat, weightFunction, sparseEdgeCriteria);
 	testLinearization<Graphm>(size, "m.gdf", &gdfFormat, weightFunction, sparseEdgeCriteria);
-	
-	Graphl dijTest(size);
-	graphSumSetter(&dijTest, size, weightFunction, sparseEdgeCriteria);
-	Gprint(&dijTest);
-	int* nodeDistances = new int[size];
-	Dijkstra(&dijTest, nodeDistances, 0);
-	cout <<endl;
-	for (int i = 0; i < size; i++) {
-		cout<<nodeDistances[i]<<"\t";
-	}
-	cout<<endl;
-	delete [] nodeDistances;
-	
 	
 	return 0;
 }
