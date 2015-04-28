@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <functional>
 #include "Functions.h"
 #include "grmat.h"
 #include "grlist.h"
