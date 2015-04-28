@@ -9,8 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cmath>
-#include <functional>
+#include "Functions.h"
 #include "grlist.h"
 #include "grmat.h"
 #include "DOTFormat.h"
@@ -20,11 +19,11 @@ using namespace std;
 
 
 template <typename GraphImplementation>
-void testLinearization(int n, string fileName, Serializer* format, function<int(int,int)> weightFunction, function<bool(int,int)> edgeCriteria);
+void testLinearization(int n, string fileName, Serializer* format, function<int(int, int,int)> weightFunction, function<bool(int, int,int)> edgeCriteria);
 
-void graphSumChecker(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc);
+void graphChecker(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
 
-void graphSumSetter(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc);
+void graphSetter(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
 
 void checkEdge(Graph* g, int v1, int v2, int weight);
 
@@ -34,12 +33,7 @@ int main(int argc, const char * argv[]) {
 	DOTFormat dotFormat;
 	GDFFormat gdfFormat;
 	int size = 10;
-	function<int(int,int)> weightFunction = [size] (int x, int y) {return x+y+size;};
-	function<bool(int,int)> sparseEdgeCriteria = [size] (int x, int y) {
-		int d = ceil(sqrt(size));
-		return x%d == 0 && y%d == 0;
-	};
-	function<bool(int,int)> denseEdgeCriteria = [size] (int x, int y) -> bool {return true;};
+
 	
 	Graphm test(0);
 	test.resize(size);
@@ -67,22 +61,22 @@ void checkEdge(Graph* g, int v1, int v2, int weight){
 	}
 }
 
-void graphSumSetter(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc){
+void graphSetter(Graph* g, int n, function<int(int,int,int)> w, function<bool(int,int,int)> acc){
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			int weight = w(i,j);
-			if (weight > 0 && acc(i,j)) {
+			int weight = w(i,j,n);
+			if (weight > 0 && acc(i,j,n)) {
 				g->setEdge(i, j, weight);
 			}
 		}
 	}
 }
 
-void graphSumChecker(Graph* g, int n, function<int(int, int)> w, function<bool(int,int)> acc){
+void graphChecker(Graph* g, int n, function<int(int,int,int)> w, function<bool(int,int,int)> acc){
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++) {
-			int weight = w(i,j);
-			if (weight > 0 && acc(i,j)) {
+			int weight = w(i,j,n);
+			if (weight > 0 && acc(i,j,n)) {
 				checkEdge(g, i, j, weight);
 			}
 		}
@@ -90,20 +84,20 @@ void graphSumChecker(Graph* g, int n, function<int(int, int)> w, function<bool(i
 }
 
 template <typename GraphImplementation>
-void testLinearization(int n, string fileName, Serializer* format, function<int(int,int)> weightFunction, function<bool(int,int)> edgeCriteria) {
+void testLinearization(int n, string fileName, Serializer* format, function<int(int,int,int)> weightFunction, function<bool(int,int,int)> edgeCriteria) {
 	ifstream fin;
 	ofstream fout;
 	
 	fout.open(fileName);
 	GraphImplementation outGraph(n);
-	graphSumSetter(&outGraph, n, weightFunction, edgeCriteria);
+	graphSetter(&outGraph, n, weightFunction, edgeCriteria);
 	outGraph.serialize(fout, format);
 	fout.close();
 	
 	fin.open(fileName);
 	GraphImplementation inGraph(0); // graph is, in general, the incorrect size. Deserialize should fix this and an error should not be produced.
 	inGraph.deserialize(fin, format);
-	graphSumChecker(&inGraph, n, weightFunction, edgeCriteria);
+	graphChecker(&inGraph, n, weightFunction, edgeCriteria);
 	fin.close();
 }
 

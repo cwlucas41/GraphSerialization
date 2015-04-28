@@ -21,7 +21,8 @@ int main(int argc, const char * argv[]) {
 	int dijkList[size];
 	for (int vertexToCheck = 0; vertexToCheck < size; vertexToCheck++) {
 		Graphl G(size);
-
+		
+		
 		for (int i = 0; i < size; i++) {
 		dijkList[i] = INFINITY;
 		}
