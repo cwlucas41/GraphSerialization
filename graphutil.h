@@ -9,6 +9,8 @@
 #ifndef GraphSerialization_graphutil_h
 #define GraphSerialization_graphutil_h
 
+
+
 void Gprint(Graph* G);
 
 void graphChecker(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
@@ -16,5 +18,7 @@ void graphChecker(Graph* g, int n, function<int(int, int,int)> w, function<bool(
 void graphSetter(Graph* g, int n, function<int(int, int,int)> w, function<bool(int, int,int)> acc);
 
 void checkEdge(Graph* g, int v1, int v2, int weight);
+
+
 
 #endif

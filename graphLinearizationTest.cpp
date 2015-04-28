@@ -34,10 +34,10 @@ int main(int argc, const char * argv[]) {
 		cout << "Resize failed" << endl;
 	}
 	
-	testLinearization<Graphl>(size, "l.dot", &dotFormat, weightFunction, sparseEdgeCriteria);
-	testLinearization<Graphm>(size, "m.dot", &dotFormat, weightFunction, sparseEdgeCriteria);
-	testLinearization<Graphl>(size, "l.gdf", &gdfFormat, weightFunction, sparseEdgeCriteria);
-	testLinearization<Graphm>(size, "m.gdf", &gdfFormat, weightFunction, sparseEdgeCriteria);
+	testLinearization<Graphl>(size, "l.dot", &dotFormat, sumWeightFunction, sparseEdgeCriteria);
+	testLinearization<Graphm>(size, "m.dot", &dotFormat, sumWeightFunction, sparseEdgeCriteria);
+	testLinearization<Graphl>(size, "l.gdf", &gdfFormat, sumWeightFunction, sparseEdgeCriteria);
+	testLinearization<Graphm>(size, "m.gdf", &gdfFormat, sumWeightFunction, sparseEdgeCriteria);
 	
 	return 0;
 }

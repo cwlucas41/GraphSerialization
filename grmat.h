@@ -13,6 +13,7 @@
 #include <iostream>
 #include <ctype.h>
 #include <string>
+#include "book.h"
 
 // Used by the mark array
 #define UNVISITED 0
