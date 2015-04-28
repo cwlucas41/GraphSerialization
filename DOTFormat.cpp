@@ -8,7 +8,6 @@
 
 #include "DOTFormat.h"
 #include "graph.h"
-#include "string"
 
 void DOTFormat::serializeToFormat(Graph* g, ostream& o) {
 	o<<"digraph serializedGraph {"<<endl;

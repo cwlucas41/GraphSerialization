@@ -8,7 +8,6 @@
 
 #include "GDFFormat.h"
 #include "graph.h"
-#include "string"
 
 void GDFFormat::serializeToFormat(Graph *g, ostream &o){
 
