@@ -99,6 +99,6 @@ public:
 	
 };
 
-#include "graphutil.cpp"
+#include "graphutil.h"
 
 #endif

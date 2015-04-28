@@ -33,7 +33,7 @@ public:
 };
 
 // Overload for the Edge << operator
-ostream& operator << (ostream& s, Edge e)
+static ostream& operator << (ostream& s, Edge e)
 { return s << "(" << e.vertex() << ", " << e.weight() << ")"; }
 
 class Graphl : public Graph {
@@ -145,6 +145,6 @@ public:
 	
 };
 
-#include "graphutil.cpp"
+#include "graphutil.h"
 
 #endif

@@ -22,7 +22,7 @@ void Gprint(Graph* G) {
   cout << "Matrix is:\n";
   for (i=0; i<G->n(); i++) {
     for(j=0; j<G->n(); j++)
-      cout << G->weight(i, j) << " ";
+      cout << G->weight(i, j) << "\t";
     cout << "\n";
   }
 }
