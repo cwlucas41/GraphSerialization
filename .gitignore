@@ -4,3 +4,5 @@
 *.docx
 GraphSerialization.xcodeproj/
 build/
+
+*.xlsx
