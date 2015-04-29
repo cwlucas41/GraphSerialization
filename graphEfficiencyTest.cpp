@@ -36,7 +36,7 @@ int main(int argc, const char * argv[]) {
 	
 	testDijkstra("randomSparse.csv", startSize, maxSize, stepSize, verticiesToAverage, randomWeightFunction, sparseEdgeCriteria);
 	testDijkstra("randomLinear.csv", startSize, maxSize, stepSize, verticiesToAverage, randomWeightFunction, linearEdgeCriterion);
-	testDijkstra("randomComplete.csv", startSize, maxSize, stepSize, 2, randomWeightFunction, completeEdgeCriteria);
+	testDijkstra("randomComplete.csv", 100, 1400, 100, 1, randomWeightFunction, completeEdgeCriteria);
 	
 	return 0;
 }
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
 void testDijkstra(string fileName, int start, int max, int step, int verteciesToConsider, function<int(int,int,int)> weightFunction, function<bool(int,int,int)> acceptanceFunction) {
 	ofstream fout;
 	fout.open(fileName);
-	fout<<"verticies, Graphl, PQ and Graphl, Graphm, PQ and Graphm, speedup for PQ and Graphl, speedup for PQ and Graphm"<<endl;
+	fout<<"vertices, Dijkstra on Graphl, Improved Dijkstra on Graphl, Dijkstra on Graphm, Improved Dijkstra on Graphm, Improved Dijkstra Speedup with Graphl, Improved Dijkstra Speedup with Graphm"<<endl;
 	for (int size = start; size <= max; size += step) {
 		pair<double, double> listResults = averageTimesOfDijkstraForGraphSize<Graphl>(size, verteciesToConsider, weightFunction, acceptanceFunction);
 		pair<double, double> matResults = averageTimesOfDijkstraForGraphSize<Graphm>(size, verteciesToConsider, weightFunction, acceptanceFunction);
